@@ -1,3 +1,4 @@
+const withOptimizedImages = require("next-optimized-images");
 const withPlugins = require("next-compose-plugins");
 const withTypescript = require("@zeit/next-typescript");
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
@@ -19,5 +20,6 @@ const bundleAnalyzerConfig = {
 
 module.exports = withPlugins([
   [withTypescript],
+  [withOptimizedImages],
   [withBundleAnalyzer, bundleAnalyzerConfig]
 ]);
