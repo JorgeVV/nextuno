@@ -1,5 +1,8 @@
 const express = require("express");
 const next = require("next");
+const loadEnv = require("./load-env");
+
+loadEnv();
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const app = next({ dev: process.env.NODE_ENV !== "production" });
