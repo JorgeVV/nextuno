@@ -1,0 +1,22 @@
+{
+  "name": "nextuno",
+  "version": "0.1.0",
+  "description": "An opinionated boilerplate for Next.js",
+  "main": "server/index.js",
+  "repository": "https://github.com/JorgeVV/nextuno",
+  "author": "Jorge Villalobos <jorge.villalobos2809@gmail.com> (https://jorgevv.github.io)",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "node server/index.js",
+    "build": "next build",
+    "start": "cross-env NODE_ENV=production node server/index.js"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "next": "^7.0.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  }
+}
