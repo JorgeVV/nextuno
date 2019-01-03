@@ -1,10 +1,14 @@
-const loadEnv = require("./server/load-env");
+const dotenv = require("dotenv");
+const nextEnv = require("next-env");
 const withOptimizedImages = require("next-optimized-images");
 const withPlugins = require("next-compose-plugins");
 const withTypescript = require("@zeit/next-typescript");
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
 
-loadEnv();
+const result = dotenv.config();
+if (result.error) {
+  throw result.error;
+}
 
 const bundleAnalyzerConfig = {
   analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
@@ -21,15 +25,11 @@ const bundleAnalyzerConfig = {
   }
 };
 
-module.exports = withPlugins(
-  [
-    [withTypescript],
-    [withOptimizedImages],
-    [withBundleAnalyzer, bundleAnalyzerConfig]
-  ],
-  {
-    publicRuntimeConfig: {
-      GRAPHQL_API_URL: process.env.GRAPHQL_API_URL
-    }
-  }
-);
+const withNextEnv = nextEnv();
+
+module.exports = withPlugins([
+  [withTypescript],
+  [withOptimizedImages],
+  [withBundleAnalyzer, bundleAnalyzerConfig],
+  [withNextEnv]
+]);
