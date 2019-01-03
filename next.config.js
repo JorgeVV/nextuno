@@ -1,14 +1,11 @@
-const dotenv = require("dotenv");
+const loadEnv = require("./server/load-env");
 const nextEnv = require("next-env");
 const withOptimizedImages = require("next-optimized-images");
 const withPlugins = require("next-compose-plugins");
 const withTypescript = require("@zeit/next-typescript");
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
 
-const result = dotenv.config();
-if (result.error) {
-  throw result.error;
-}
+loadEnv();
 
 const bundleAnalyzerConfig = {
   analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
