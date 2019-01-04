@@ -40,7 +40,19 @@ const nextOfflineConfig = {
     clientsClaim: true,
     skipWaiting: true,
     globDirectory: ".",
-    globPatterns: ["static/**/*"]
+    globPatterns: ["static/**/*"],
+    runtimeCaching: [
+      {
+        urlPattern: "/",
+        handler: "networkFirst",
+        options: {
+          cacheName: "html-cache",
+          cacheableResponse: {
+            statuses: [200]
+          }
+        }
+      }
+    ]
   }
 };
 
