@@ -1,6 +1,7 @@
 const express = require("express");
 const loadEnv = require("./load-env");
 const next = require("next");
+const path = require("path");
 
 loadEnv();
 
@@ -10,6 +11,11 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
+
+  server.get("/service-worker.js", (req, res) => {
+    const filePath = path.join(__dirname, "..", ".next", req.path);
+    return app.serveStatic(req, res, filePath);
+  });
 
   server.get("*", (req, res) => {
     return handle(req, res);
