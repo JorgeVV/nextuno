@@ -4,15 +4,23 @@ import Document, {
   NextDocumentContext,
   NextScript
 } from "next/document";
+import sprite from "svg-sprite-loader/runtime/sprite.build";
 import { resolveStatic } from "../src/utils";
 
-export default class MyDocument extends Document {
+interface IProps {
+  spriteContent: string;
+}
+
+export default class MyDocument extends Document<IProps> {
   public static async getInitialProps(ctx: NextDocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const spriteContent = sprite.stringify();
+
+    return { spriteContent, ...initialProps };
   }
 
   public render() {
+    const { spriteContent } = this.props;
     return (
       <html lang="en">
         <Head>
@@ -21,6 +29,7 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content="#000000" />
         </Head>
         <body>
+          <div dangerouslySetInnerHTML={{ __html: spriteContent }} />
           <Main />
           <NextScript />
         </body>
