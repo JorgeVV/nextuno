@@ -1,7 +1,10 @@
 const loadEnv = require("./server/load-env");
 const nextEnv = require("next-env");
+
+const withCss = require("@zeit/next-css");
 const withOptimizedImages = require("next-optimized-images");
 const withPlugins = require("next-compose-plugins");
+const withSass = require("@zeit/next-sass");
 const withTypescript = require("@zeit/next-typescript");
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
 
@@ -24,9 +27,16 @@ const bundleAnalyzerConfig = {
 
 const withNextEnv = nextEnv();
 
-module.exports = withPlugins([
-  [withTypescript],
-  [withOptimizedImages],
-  [withBundleAnalyzer, bundleAnalyzerConfig],
-  [withNextEnv]
-]);
+const commonConfiguration = { cssModules: true };
+
+module.exports = withPlugins(
+  [
+    [withTypescript],
+    [withCss],
+    [withSass],
+    [withOptimizedImages],
+    [withBundleAnalyzer, bundleAnalyzerConfig],
+    [withNextEnv]
+  ],
+  commonConfiguration
+);
