@@ -1,6 +1,6 @@
 const copyWebpackPlugin = require("copy-webpack-plugin");
+const dotenv = require("dotenv");
 const ejs = require("ejs");
-const loadEnv = require("./server/load-env");
 const nextEnv = require("next-env");
 
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
@@ -12,7 +12,10 @@ const withSass = require("@zeit/next-sass");
 const withTypescript = require("@zeit/next-typescript");
 const withNextEnv = nextEnv();
 
-loadEnv();
+const result = dotenv.config();
+if (result.error) {
+  console.warn("Couldn't load .env file.");
+}
 
 const commonConfiguration = {
   cssModules: true,

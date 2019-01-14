@@ -65,3 +65,6 @@ out
 
 # Webpack Bundle Analyzer output
 bundles
+
+# TypeScript build output
+dist
