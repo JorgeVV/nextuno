@@ -50,6 +50,10 @@ declare module "next-seo" {
     handle?: string;
   }
 
+  interface IFacebook {
+    appId: number;
+  }
+
   export interface INextSeoConfig {
     templateTitle?: string;
     title?: string;
@@ -58,6 +62,7 @@ declare module "next-seo" {
     twitter?: ITwitter;
     openGraph?: IOpenGraph;
     canonical?: string;
+    facebook?: IFacebook;
   }
 
   export interface IProps {
