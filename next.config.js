@@ -14,25 +14,26 @@ const withNextEnv = nextEnv();
 
 const result = dotenv.config();
 if (result.error) {
+  // tslint:disable-next-line:no-console
   console.warn("Couldn't load .env file.");
 }
 
 const commonConfiguration = {
-  cssModules: true,
-  assetPrefix: process.env.NEXT_STATIC_ASSET_PREFIX
+  assetPrefix: process.env.NEXT_STATIC_ASSET_PREFIX,
+  cssModules: true
 };
 
 const bundleAnalyzerConfig = {
-  analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
   analyzeBrowser: ["browser", "both"].includes(process.env.BUNDLE_ANALYZE),
+  analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {
-    server: {
-      analyzerMode: "static",
-      reportFilename: "../bundles/server.html"
-    },
     browser: {
       analyzerMode: "static",
       reportFilename: "../bundles/client.html"
+    },
+    server: {
+      analyzerMode: "static",
+      reportFilename: "../bundles/server.html"
     }
   }
 };
@@ -41,21 +42,21 @@ const nextOfflineConfig = {
   dontAutoRegisterSw: true,
   workboxOpts: {
     clientsClaim: true,
-    skipWaiting: true,
     globDirectory: ".",
     globPatterns: ["static/**/*"],
     runtimeCaching: [
       {
-        urlPattern: "/",
         handler: "networkFirst",
         options: {
           cacheName: "html-cache",
           cacheableResponse: {
             statuses: [200]
           }
-        }
+        },
+        urlPattern: "/"
       }
-    ]
+    ],
+    skipWaiting: true
   }
 };
 
@@ -88,12 +89,12 @@ const withTemplates = (nextConfig = {}) => {
 const templatesConfig = {
   templates: [
     {
-      name: "webmanifest",
       from: "assets/templates/manifest.json.ejs",
-      to: "static/manifest.json",
       inject: {
         assetPrefix: `${commonConfiguration.assetPrefix || ""}/_next-static`
-      }
+      },
+      name: "webmanifest",
+      to: "static/manifest.json"
     }
   ]
 };

@@ -5,6 +5,7 @@ import { join } from "path";
 
 const result = dotenv.config();
 if (result.error) {
+  // tslint:disable-next-line no-console
   console.warn("Couldn't load .env file.");
 }
 
@@ -28,6 +29,7 @@ app.prepare().then(() => {
     if (err) {
       throw err;
     }
+    // tslint:disable-next-line no-console
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
