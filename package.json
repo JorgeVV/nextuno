@@ -12,7 +12,7 @@
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "lint:ts": "tslint --project tsconfig.json --fix",
-    "lint:css": "stylelint \"pages/**/*.{css,scss}\" --fix",
+    "lint:css": "stylelint \"{src,pages}/**/*.{css,scss}\" --fix",
     "analyze": "cross-env BUNDLE_ANALYZE=both npm run build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser npm run build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server npm run build"
