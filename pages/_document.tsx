@@ -5,7 +5,7 @@ import Document, {
   NextScript
 } from "next/document";
 import sprite from "svg-sprite-loader/runtime/sprite.build";
-import { resolveStatic } from "../src/utils";
+import { resolveStatic } from "../app/utils";
 
 interface IProps {
   spriteContent: string;

@@ -188,7 +188,7 @@ declare module "*.svg?sprite" {
     content: string;
   }
   const svgComponent: ISpriteSymbol &
-    React.FunctionComponent<React.SVGProps<SVGElement>>;
+    React.ComponentType<React.SVGProps<SVGElement>>;
   export default svgComponent;
 }
 

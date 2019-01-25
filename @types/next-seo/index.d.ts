@@ -1,4 +1,6 @@
 declare module "next-seo" {
+  import React from "react";
+
   interface IOpenGraphImage {
     url: string;
     alt?: string;
@@ -69,6 +71,6 @@ declare module "next-seo" {
     config: INextSeoConfig;
   }
 
-  const DefaultSeo: React.ComponentClass<IProps>;
+  const DefaultSeo: React.ComponentType<IProps>;
   export default DefaultSeo;
 }

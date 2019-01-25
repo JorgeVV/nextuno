@@ -7,5 +7,5 @@
     "outDir": "dist",
     "target": "es2017"
   },
-  "include": ["server/**/*.ts"]
+  "include": ["@types"]
 }
