@@ -17,7 +17,7 @@ if (result.error) {
 }
 
 const commonConfiguration = {
-  assetPrefix: process.env.NEXT_STATIC_ASSET_PREFIX,
+  assetPrefix: process.env.NEXT_STATIC_ASSET_PREFIX || "",
   cssModules: true
 };
 

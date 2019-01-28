@@ -13,6 +13,7 @@
     "build": "run-s build:*",
     "build:next": "next build",
     "build:server": "tsc --project tsconfig.server.json",
+    "export": "next export",
     "lint": "run-s lint:*",
     "lint:ts": "tslint --project tsconfig.json --fix",
     "lint:css": "stylelint \"{app,pages}/**/*.{css,scss}\" --fix",
