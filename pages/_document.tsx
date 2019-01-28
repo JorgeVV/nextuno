@@ -5,7 +5,6 @@ import Document, {
   NextScript
 } from "next/document";
 import sprite from "svg-sprite-loader/runtime/sprite.build";
-import { resolveStatic } from "../app/utils";
 
 interface IProps {
   spriteContent: string;
@@ -24,7 +23,6 @@ export default class MyDocument extends Document<IProps> {
       <html lang="en">
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="manifest" href={resolveStatic("manifest.json")} />
           <meta name="theme-color" content="#000000" />
         </Head>
         <body>

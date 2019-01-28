@@ -1,6 +1,4 @@
-const copyWebpackPlugin = require("copy-webpack-plugin");
 const dotenv = require("dotenv");
-const ejs = require("ejs");
 const nextEnv = require("next-env");
 
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
@@ -60,45 +58,6 @@ const nextOfflineConfig = {
   }
 };
 
-// TODO: extract to another file or package
-const withTemplates = (nextConfig = {}) => {
-  return Object.assign({}, nextConfig, {
-    webpack(config, options) {
-      const { templates = [] } = nextConfig;
-
-      const resolvedTemplates = templates.map(({ from, to, inject }) => ({
-        from,
-        to,
-        toType: "file",
-        transform: content => ejs.render(content.toString(), inject)
-      }));
-
-      if (resolvedTemplates.length > 0) {
-        config.plugins.push(new copyWebpackPlugin(resolvedTemplates, options));
-      }
-
-      if (typeof nextConfig.webpack === "function") {
-        return nextConfig.webpack(config, options);
-      }
-
-      return config;
-    }
-  });
-};
-
-const templatesConfig = {
-  templates: [
-    {
-      from: "assets/templates/manifest.json.ejs",
-      inject: {
-        assetPrefix: `${commonConfiguration.assetPrefix || ""}/_next-static`
-      },
-      name: "webmanifest",
-      to: "static/manifest.json"
-    }
-  ]
-};
-
 module.exports = withPlugins(
   [
     [withTypescript],
@@ -107,8 +66,7 @@ module.exports = withPlugins(
     [withOffline, nextOfflineConfig],
     [withOptimizedImages],
     [withBundleAnalyzer, bundleAnalyzerConfig],
-    [withNextEnv],
-    [withTemplates, templatesConfig]
+    [withNextEnv]
   ],
   commonConfiguration
 );
