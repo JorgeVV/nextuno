@@ -15,7 +15,6 @@ export default class MyDocument extends Document<IProps> {
   public static async getInitialProps(ctx: NextDocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
     const spriteContent = sprite.stringify();
-
     return { spriteContent, ...initialProps };
   }
 

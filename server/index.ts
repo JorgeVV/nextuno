@@ -1,7 +1,8 @@
-import dotenv from "dotenv";
-import express from "express";
-import next from "next";
-import { join } from "path";
+import * as dotenv from "dotenv";
+import * as express from "express";
+import * as next from "next";
+import * as path from "path";
+import routes from "../app/router";
 
 const result = dotenv.config();
 if (result.error) {
@@ -11,25 +12,21 @@ if (result.error) {
 
 const port = parseInt(process.env.PORT || "3000", 10);
 const app = next({ dev: process.env.NODE_ENV !== "production" });
-const handle = app.getRequestHandler();
+const handle = routes.getRequestHandler(app);
+const server = express();
 
 app.prepare().then(() => {
-  const server = express();
-
-  server.get("/service-worker.js", (req, res) => {
-    const filePath = join(__dirname, "..", ".next", req.path);
-    return app.serveStatic(req, res, filePath);
-  });
-
-  server.get("*", (req, res) => {
-    return handle(req, res);
-  });
-
-  server.listen(port, (err: any) => {
-    if (err) {
-      throw err;
-    }
-    // tslint:disable-next-line no-console
-    console.log(`> Ready on http://localhost:${port}`);
-  });
+  server
+    .get("/service-worker.js", (req, res) => {
+      const filePath = path.join(__dirname, "..", ".next", req.path);
+      return app.serveStatic(req, res, filePath);
+    })
+    .use(handle)
+    .listen(port, (err: any) => {
+      if (err) {
+        throw err;
+      }
+      // tslint:disable-next-line no-console
+      console.log(`> Ready on http://localhost:${port}`);
+    });
 });
